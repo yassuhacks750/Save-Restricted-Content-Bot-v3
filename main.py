@@ -4,7 +4,7 @@ import os
 import sys
 from shared_client import start_client
 
-async def load_and_run_plugins(client, app, userbot):
+async def load_and_run_plugins(client):
     plugins = os.listdir("plugins")
     for file in plugins:
         if not file.endswith(".py") or file.startswith("__"):
