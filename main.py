@@ -17,7 +17,7 @@ async def load_and_run_plugins(client, app, userbot):
 
 async def main():
     bot_token = os.getenv("BOT_TOKEN")
-    client, app, userbot = await start_client(bot_token)
+    client = await start_client(bot_token)
     await load_and_run_plugins(client, app, userbot)
 
 if __name__ == "__main__":
