@@ -1,6 +1,8 @@
 import asyncio
+import importlib
+import os
+import sys
 from shared_client import start_client
-import importlib, os, sys
 
 async def load_and_run_plugins(client, app, userbot):
     plugins = os.listdir("plugins")
@@ -14,7 +16,8 @@ async def load_and_run_plugins(client, app, userbot):
             await module.run_plugin(client, app, userbot)
 
 async def main():
-    client, app, userbot = await start_client()
+    bot_token = os.getenv("BOT_TOKEN")
+    client, app, userbot = await start_client(bot_token)
     await load_and_run_plugins(client, app, userbot)
 
 if __name__ == "__main__":
