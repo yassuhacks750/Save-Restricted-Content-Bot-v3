@@ -4,14 +4,12 @@ import os
 from shared_client import start_client
 
 async def load_and_run_plugins(client):
-    plugins = os.listdir("plugins")
-    for file in plugins:
-        if not file.endswith(".py") or file.startswith("__"):
+    for file in os.listdir("plugins"):
+        if file.startswith("__") or not file.endswith(".py"):
             continue
-        name = file[:-3]
-        module = importlib.import_module(f"plugins.{name}")
+        module = importlib.import_module(f"plugins.{file[:-3]}")
         if hasattr(module, "run_plugin"):
-            print(f"Running plugin: {name}")
+            print(f"Running plugin: {file}")
             await module.run_plugin(client)
 
 async def main():
@@ -20,7 +18,4 @@ async def main():
     await load_and_run_plugins(client)
 
 if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-    except KeyboardInterrupt:
-        print("Bot stopped by user.")
+    asyncio.run(main())
